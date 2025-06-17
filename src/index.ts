@@ -18,10 +18,11 @@ program
     .requiredOption('--ethic <ethic>', 'The principle guiding the commit')
     .requiredOption('--expression <expression>', 'The actual change')
     .action(async ({ essence, ethic, expression }) => {
+        const plainMessage = `[Essence ${essence}] [Ethic ${ethic}] ${expression}`;
         const message = `[${chalk.dim('Essence')} ${essence}] [${chalk.dim('Ethic')} ${ethic}] ${expression}`;
         try {
             await git.add('.')
-            await git.commit(message);
+            await git.commit(plainMessage);
             console.log(chalk.bold(chalk.green('✅ Commit Created')), chalk.italic(message))
         } catch (err) {
             console.error(chalk.red('❌ Git commit failed:', err))
