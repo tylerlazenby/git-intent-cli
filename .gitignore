@@ -1,0 +1,5 @@
+# Any .idea file
+.idea
+.idea/*
+
+/node_modules/
