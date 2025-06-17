@@ -17,7 +17,8 @@ type CommitActionOptions = {
 program
     .name('indent')
     .description('Add doctrinal structure to your Git commits')
-    .version('0.1.0');
+    .version('0.1.0')
+    .helpOption("-h, --help", "Display help for command");
 
 program
     .command('commit')
