@@ -24,7 +24,7 @@ intent commit \
 ```
 Creates a commit like:
 ```css
-[Essence: Simplicity] [Ethic: Reduce friction] Removed redundant form step
+[Essence:  Simplicity] [Ethic: Reduce friction] Removed redundant form step
 ```
 
 ## 🔧 Installation

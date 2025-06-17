@@ -20,6 +20,7 @@ program
     .action(async ({ essence, ethic, expression }) => {
         const message = `[Essence ${essence}] [Ethic ${ethic}] ${expression}`;
         try {
+            await git.add('.')
             await git.commit(message);
             console.log(chalk.green('✅ Commit Created'), message)
         } catch (err) {
