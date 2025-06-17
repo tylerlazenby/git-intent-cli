@@ -22,7 +22,7 @@ program
         try {
             await git.add('.')
             await git.commit(message);
-            console.log(chalk.bold(chalk.green('✅ Commit Created')), message)
+            console.log(chalk.bold(chalk.green('✅ Commit Created')), chalk.italic(chalk.dim(message)))
         } catch (err) {
             console.error(chalk.red('❌ Git commit failed:', err))
         }
