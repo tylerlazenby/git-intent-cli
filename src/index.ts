@@ -20,45 +20,6 @@ type CommitActionOptions = {
 }
 
 program
-    .command('init')
-    .description('Create a new .intentrc.json file in the project root')
-    .action(async () => {
-        const configPath = path.resolve(process.cwd(), '.intentrc.json');
-
-        if (fs.existsSync(configPath)) {
-            const overwrite = await select({
-                message: `.intentrc.json already exists. Overwrite?`,
-                choices: [
-                    { name: 'Yes, overwrite it', value: true },
-                    { name: 'No, cancel', value: false }
-                ]
-            });
-
-            if (!overwrite) {
-                console.log(chalk.yellow('❌ Init cancelled.'));
-                return;
-            }
-        }
-
-        const essencesInput = await input({
-            message: 'Enter comma-separated essences (e.g. Simplicity, Security, Performance):'
-        });
-
-        const ethicsInput = await input({
-            message: 'Enter comma-separated ethics (e.g. Clarity, Transparency, Stability):'
-        });
-
-        const config = {
-            essences: essencesInput.split(',').map((s) => s.trim()).filter(Boolean),
-            ethics: ethicsInput.split(',').map((s) => s.trim()).filter(Boolean)
-        };
-
-        fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
-        console.log(chalk.green(`✅ .intentrc.json created successfully.`));
-    });
-
-
-program
     .name('indent')
     .description('Add doctrinal structure to your Git commits')
     .version('0.1.0')
@@ -96,6 +57,16 @@ Examples:
             expression = await input({message: 'What did you do?'})
         }
 
+        if (!autoStage) {
+            autoStage = await select({
+                message: 'Do you want to save all uncommitted changes?',
+                choices: [
+                    {name: 'Yes', value: true},
+                    {name: 'No', value: false},
+                ]
+            })
+        }
+
         const plainMessage = `[Essence ${essence}] [Ethic ${ethic}] ${expression}`;
         const message = `[${chalk.dim('Essence')} ${essence}] [${chalk.dim('Ethic')} ${ethic}] ${expression}`;
 
@@ -131,5 +102,44 @@ Examples:
             console.error(chalk.red('❌ Git commit failed:', err))
         }
     });
+
+program
+    .command('init')
+    .description('Create a new .intentrc.json file in the project root')
+    .action(async () => {
+        const configPath = path.resolve(process.cwd(), '.intentrc.json');
+
+        if (fs.existsSync(configPath)) {
+            const overwrite = await select({
+                message: `.intentrc.json already exists. Overwrite?`,
+                choices: [
+                    { name: 'Yes, overwrite it', value: true },
+                    { name: 'No, cancel', value: false }
+                ]
+            });
+
+            if (!overwrite) {
+                console.log(chalk.yellow('❌ Init cancelled.'));
+                return;
+            }
+        }
+
+        const essencesInput = await input({
+            message: 'Enter comma-separated essences (e.g. Simplicity, Security, Performance):'
+        });
+
+        const ethicsInput = await input({
+            message: 'Enter comma-separated ethics (e.g. Clarity, Transparency, Stability):'
+        });
+
+        const config = {
+            essences: essencesInput.split(',').map((s) => s.trim()).filter(Boolean),
+            ethics: ethicsInput.split(',').map((s) => s.trim()).filter(Boolean)
+        };
+
+        fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+        console.log(chalk.green(`✅ .intentrc.json created successfully.`));
+    });
+
 
 program.parse()
