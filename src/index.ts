@@ -7,6 +7,13 @@ import chalk from 'chalk';
 const program = new Command();
 const git = simpleGit()
 
+type CommitActionOptions = {
+    essence?: string | null | undefined;
+    ethic?: string | null | undefined;
+    expression?: string | null | undefined;
+    autostage: string | null | undefined;
+}
+
 program
     .name('indent')
     .description('Add doctrinal structure to your Git commits')
@@ -17,11 +24,17 @@ program
     .requiredOption('--essence <essence>', 'The core doctrine or goal')
     .requiredOption('--ethic <ethic>', 'The principle guiding the commit')
     .requiredOption('--expression <expression>', 'The actual change')
-    .action(async ({ essence, ethic, expression }) => {
+    .option('--autostage', 'If the CLI should automatically stage all regular changes.')
+    .action(async (options: CommitActionOptions) => {
+        const { essence, ethic, expression, autostage } = options;
         const plainMessage = `[Essence ${essence}] [Ethic ${ethic}] ${expression}`;
         const message = `[${chalk.dim('Essence')} ${essence}] [${chalk.dim('Ethic')} ${ethic}] ${expression}`;
         try {
-            await git.add('.')
+            if (autostage) {
+                console.log(chalk.bold(chalk.yellow('📥 Staging all changes...')))
+                await git.add('.')
+            }
+
             await git.commit(plainMessage);
             console.log(chalk.bold(chalk.green('✅ Commit Created')), chalk.italic(message))
         } catch (err) {
