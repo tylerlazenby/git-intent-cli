@@ -6,4 +6,5 @@
 /node_modules/*
 
 /dist/
+/dist/index.ts
 /dist/index.js
