@@ -8,3 +8,5 @@
 /dist/
 /dist/index.ts
 /dist/index.js
+
+.intentrc.json
