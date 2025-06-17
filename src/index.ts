@@ -10,7 +10,6 @@ import path from "path";
 
 const program = new Command();
 const git = simpleGit()
-const config = loadIntentConfig(); // Load from .intentrc.json
 
 type CommitActionOptions = {
     essence?: string | null | undefined;
@@ -38,6 +37,7 @@ Examples:
 `)
     .action(async (options: CommitActionOptions) => {
         let { essence, ethic, expression, autoStage } = options;
+        const config = loadIntentConfig(); // Load from .intentrc.json
 
         if (!essence) {
             essence = await select({
