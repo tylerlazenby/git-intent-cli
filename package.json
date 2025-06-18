@@ -23,6 +23,6 @@
     "typescript": "^5.8.3"
   },
   "bin": {
-    "intent": "./bin/intent.cmd"
+    "intent": "./src/index.ts"
   }
 }
