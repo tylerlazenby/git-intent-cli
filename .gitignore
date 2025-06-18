@@ -10,3 +10,9 @@
 /dist/index.js
 
 .intentrc.json
+
+src/
+tsconfig.json
+.gitignore
+*.md
+*.png

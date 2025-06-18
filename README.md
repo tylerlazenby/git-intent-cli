@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/git-intent-cli.svg)](https://badge.fury.io/js/git-intent-cli)
+
 # Git Intent CLI
 🎯 A Git commit interface for developers who want their work to reflect **purpose**, **principles**, and **meaning** — not just code changes.
 
