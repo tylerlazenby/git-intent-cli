@@ -4,3 +4,4 @@ tsconfig.json
 *.md
 *.png
 .intentrc.json
+.idea
